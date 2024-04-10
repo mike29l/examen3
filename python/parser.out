@@ -1,0 +1,394 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COLON
+    COMMA
+    CSTRING
+    DIVIDE
+    EQUAL
+    EQUAL_EQUAL
+    EQUAL_GREATER_THAN
+    EQUAL_LESS_THAN
+    EXCLAMATION
+    FIMPORT
+    FLOAT
+    GREATER_THAN
+    IMPORT
+    INTEGER
+    LESS_THAN
+    LOGIC
+    MINUS
+    MINUS_MINUS
+    NOEQUAL
+    PLUS
+    PLUS_PLUS
+    QUESTION
+    RETURN
+    SSTRING
+    TIMES
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> inicio
+Rule 2     inicio -> RESERVED RESERVED ID LBRACE mas RBRACE
+Rule 3     mas -> code
+Rule 4     mas -> code mas
+Rule 5     code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE
+Rule 6     pp -> pps
+Rule 7     args -> cd
+Rule 8     args -> cd args
+Rule 9     cd -> DATA_TYPE LBRACKET RBRACKET RESERVED
+Rule 10    pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+Rule 11    empty -> <empty>
+
+Terminals, with rules where they appear
+
+CCOMILLAS            : 10
+COLON                : 
+COMMA                : 
+CSTRING              : 
+DATA_TYPE            : 9
+DIVIDE               : 
+EQUAL                : 
+EQUAL_EQUAL          : 
+EQUAL_GREATER_THAN   : 
+EQUAL_LESS_THAN      : 
+EXCLAMATION          : 
+FIMPORT              : 
+FLOAT                : 
+FUNCTION_TYPE        : 5
+GREATER_THAN         : 
+ID                   : 2
+IMPORT               : 
+INTEGER              : 
+LBRACE               : 2 5
+LBRACKET             : 9
+LESS_THAN            : 
+LOGIC                : 
+LPAREN               : 5 10
+MAIN                 : 5
+MINUS                : 
+MINUS_MINUS          : 
+NOEQUAL              : 
+PERIOD               : 10 10
+PLUS                 : 
+PLUS_PLUS            : 
+QUESTION             : 
+RBRACE               : 2 5
+RBRACKET             : 9
+RESERVED             : 2 2 5 9 10 10 10
+RETURN               : 
+RPAREN               : 5 10
+SEMICOLON            : 10
+SSTRING              : 
+STATIC               : 5
+TIMES                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 5 8
+cd                   : 7 8
+code                 : 3 4
+empty                : 
+inicio               : 1
+mas                  : 2 4
+pp                   : 5
+pps                  : 6
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . inicio
+    (2) inicio -> . RESERVED RESERVED ID LBRACE mas RBRACE
+
+    RESERVED        shift and go to state 3
+
+    program                        shift and go to state 1
+    inicio                         shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> inicio .
+
+    $end            reduce using rule 1 (program -> inicio .)
+
+
+state 3
+
+    (2) inicio -> RESERVED . RESERVED ID LBRACE mas RBRACE
+
+    RESERVED        shift and go to state 4
+
+
+state 4
+
+    (2) inicio -> RESERVED RESERVED . ID LBRACE mas RBRACE
+
+    ID              shift and go to state 5
+
+
+state 5
+
+    (2) inicio -> RESERVED RESERVED ID . LBRACE mas RBRACE
+
+    LBRACE          shift and go to state 6
+
+
+state 6
+
+    (2) inicio -> RESERVED RESERVED ID LBRACE . mas RBRACE
+    (3) mas -> . code
+    (4) mas -> . code mas
+    (5) code -> . RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE
+
+    RESERVED        shift and go to state 7
+
+    mas                            shift and go to state 8
+    code                           shift and go to state 9
+
+state 7
+
+    (5) code -> RESERVED . STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE
+
+    STATIC          shift and go to state 10
+
+
+state 8
+
+    (2) inicio -> RESERVED RESERVED ID LBRACE mas . RBRACE
+
+    RBRACE          shift and go to state 11
+
+
+state 9
+
+    (3) mas -> code .
+    (4) mas -> code . mas
+    (3) mas -> . code
+    (4) mas -> . code mas
+    (5) code -> . RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE
+
+    RBRACE          reduce using rule 3 (mas -> code .)
+    RESERVED        shift and go to state 7
+
+    code                           shift and go to state 9
+    mas                            shift and go to state 12
+
+state 10
+
+    (5) code -> RESERVED STATIC . FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE
+
+    FUNCTION_TYPE   shift and go to state 13
+
+
+state 11
+
+    (2) inicio -> RESERVED RESERVED ID LBRACE mas RBRACE .
+
+    $end            reduce using rule 2 (inicio -> RESERVED RESERVED ID LBRACE mas RBRACE .)
+
+
+state 12
+
+    (4) mas -> code mas .
+
+    RBRACE          reduce using rule 4 (mas -> code mas .)
+
+
+state 13
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE . MAIN LPAREN args RPAREN LBRACE pp RBRACE
+
+    MAIN            shift and go to state 14
+
+
+state 14
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN . LPAREN args RPAREN LBRACE pp RBRACE
+
+    LPAREN          shift and go to state 15
+
+
+state 15
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN . args RPAREN LBRACE pp RBRACE
+    (7) args -> . cd
+    (8) args -> . cd args
+    (9) cd -> . DATA_TYPE LBRACKET RBRACKET RESERVED
+
+    DATA_TYPE       shift and go to state 18
+
+    args                           shift and go to state 16
+    cd                             shift and go to state 17
+
+state 16
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args . RPAREN LBRACE pp RBRACE
+
+    RPAREN          shift and go to state 19
+
+
+state 17
+
+    (7) args -> cd .
+    (8) args -> cd . args
+    (7) args -> . cd
+    (8) args -> . cd args
+    (9) cd -> . DATA_TYPE LBRACKET RBRACKET RESERVED
+
+    RPAREN          reduce using rule 7 (args -> cd .)
+    DATA_TYPE       shift and go to state 18
+
+    cd                             shift and go to state 17
+    args                           shift and go to state 20
+
+state 18
+
+    (9) cd -> DATA_TYPE . LBRACKET RBRACKET RESERVED
+
+    LBRACKET        shift and go to state 21
+
+
+state 19
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN . LBRACE pp RBRACE
+
+    LBRACE          shift and go to state 22
+
+
+state 20
+
+    (8) args -> cd args .
+
+    RPAREN          reduce using rule 8 (args -> cd args .)
+
+
+state 21
+
+    (9) cd -> DATA_TYPE LBRACKET . RBRACKET RESERVED
+
+    RBRACKET        shift and go to state 23
+
+
+state 22
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE . pp RBRACE
+    (6) pp -> . pps
+    (10) pps -> . RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    RESERVED        shift and go to state 24
+
+    pp                             shift and go to state 25
+    pps                            shift and go to state 26
+
+state 23
+
+    (9) cd -> DATA_TYPE LBRACKET RBRACKET . RESERVED
+
+    RESERVED        shift and go to state 27
+
+
+state 24
+
+    (10) pps -> RESERVED . PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    PERIOD          shift and go to state 28
+
+
+state 25
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp . RBRACE
+
+    RBRACE          shift and go to state 29
+
+
+state 26
+
+    (6) pp -> pps .
+
+    RBRACE          reduce using rule 6 (pp -> pps .)
+
+
+state 27
+
+    (9) cd -> DATA_TYPE LBRACKET RBRACKET RESERVED .
+
+    DATA_TYPE       reduce using rule 9 (cd -> DATA_TYPE LBRACKET RBRACKET RESERVED .)
+    RPAREN          reduce using rule 9 (cd -> DATA_TYPE LBRACKET RBRACKET RESERVED .)
+
+
+state 28
+
+    (10) pps -> RESERVED PERIOD . RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    RESERVED        shift and go to state 30
+
+
+state 29
+
+    (5) code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE .
+
+    RESERVED        reduce using rule 5 (code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE .)
+    RBRACE          reduce using rule 5 (code -> RESERVED STATIC FUNCTION_TYPE MAIN LPAREN args RPAREN LBRACE pp RBRACE .)
+
+
+state 30
+
+    (10) pps -> RESERVED PERIOD RESERVED . PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    PERIOD          shift and go to state 31
+
+
+state 31
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD . RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    RESERVED        shift and go to state 32
+
+
+state 32
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD RESERVED . LPAREN CCOMILLAS RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 33
+
+
+state 33
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN . CCOMILLAS RPAREN SEMICOLON
+
+    CCOMILLAS       shift and go to state 34
+
+
+state 34
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 35
+
+
+state 35
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 36
+
+
+state 36
+
+    (10) pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON .
+
+    RBRACE          reduce using rule 10 (pps -> RESERVED PERIOD RESERVED PERIOD RESERVED LPAREN CCOMILLAS RPAREN SEMICOLON .)
+
